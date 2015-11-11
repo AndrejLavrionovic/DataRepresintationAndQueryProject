@@ -2,7 +2,7 @@
 
 ###Overview
 
-This API is designed for other software developers so that thay can design their products. Its use the dataset downloaded from [data.gov.ie](https://data.gov.ie/dataset/roscommon-tourism-attractions11457) web source.
+This API is designed for other software developers so that they can design their products. Its use the dataset downloaded from [data.gov.ie](https://data.gov.ie/dataset/roscommon-tourism-attractions11457) web source.
 
 ###About the data
 
@@ -19,18 +19,18 @@ Dataset provide the data about Tourism Attractions in Ireland Co. Roscommon.
 
 Roscommon County Council provides this information with the understanding that it is not guaranteed to be accurate, correct or complete. Roscommon County Council accepts no liability for any loss or damage suffered by those using this data for any purpose.
 
-The dataset is downloaded as a csv (Comma Separated Values) format file. It contains 35 rows of data including header (1st row). There are 7 values in each line:
+The dataset is downloaded as a csv (Comma Separated Values) format file. It contains 35 rows of data including header (1st row). There are 7 fields in each line:
 
 - **X** and **Y** - map coordinates;
 - **OBJECTID** -  object id;
 - **Name** - name of the Attraction;
 - **Address** - town where attraction is locating;
-- **Streetview_Link** - link to the Google Map Location with a propriate Attraction;
+- **Streetview_Link** - link to the Google Map Location with a appropriate Attraction;
 - **WGS84Longitude** and **WGS84Latitude** - same as *X* and *Y*;
 
 ### Design
 
-The data is available through *http://www.tourism.ie/attractions/r/* URL address and using HTTP methods.
+The data is available through *http://www.tourism.ie/attractions/r/* URL address and using HTTP standard methods.
 
 #####GET method is used for retrieving data.
 
@@ -40,7 +40,7 @@ With using http://www.tourism.ie/attractions/r/all URL address, data will be ret
 
 An example of a response would be:
 ```json
-[{1}, {2}, {3}, {4}, ..., {34}]
+[1, 2, 3, 4, 5, 6, ..., 34]
 ```
 ######Data for specified attraction
 
@@ -75,14 +75,14 @@ Also there is available to get data regarding the location (town address). To do
 An example:
 
 ```json
-[{19}, {24}, {25}, {27}]
+[19, 24, 25, 27]
 ```
 
 #####DELETE method
 
-Using DELETE method app developer can remove record from dataset by specifieng object id in the URL address: *http://www.tourism.ie/attraction/r/all?OBJECTID=22*. To remove group of records need to specify their object ids in the URL address separated by '&' - *http://www.tourism.ie/attraction/r/all?OBJECTID=5&OBJECTID=22&OBJECTID=29*. To delete all records of attraction located in the same address need to specify location address in the URL. *http://www.tourism.ie/attraction/r/all?Address=Roscommon* will delete all attraction located in Roscommon.
+Using DELETE method the app developer can remove record from dataset by specifying the object id in the URL address: *http://www.tourism.ie/attraction/r/all?OBJECTID=22*. To remove group of records need to specify their object ids in the URL address separated by '&' - *http://www.tourism.ie/attraction/r/all?OBJECTID=5&OBJECTID=22&OBJECTID=29*. To delete all records of attraction located in the same address need to specify location address in the URL. *http://www.tourism.ie/attraction/r/all?Address=Roscommon* will delete all attraction located in Roscommon.
 
-Need to be very carefull to use DELETE method as incorect use can delete not proper record and even all if record is not specified. The same query is performed only once.
+Need to be very careful to use DELETE method as incorrect use can delete not proper record and even all if record is not specified. The same query is performed only once.
 
 #####POST method
 
@@ -90,16 +90,18 @@ With the POST method you can add new record to the dataset, that is POST to *htt
 
 ```json
 {
-  X: -8.7584994947,
-  Y: 53.7483984734,
-  OBJECTID: 36,
-  Name: New Attraction,
-  Address: Roscommon,
-  Streetview_Link: <google map link>,
-  WGS84Longitude: -8.7584994947,
-  WGS84Latitude: 53.7483984734
+  "X": -8.7584994947,
+  "Y": 53.7483984734,
+  "OBJECTID": 36,
+  "Name": "New Attraction",
+  "Address": "Roscommon",
+  "Streetview_Link": "<google map link>",
+  "WGS84Longitude": -8.7584994947,
+  "WGS84Latitude": 53.7483984734
 }
 ```
+
+Also there is possible to get existing data by posting the request to *http://www.tourism.ie/attractions/r/*. Request should contain OBJECTID=value pair.
 
 #####PUT method
 
@@ -107,14 +109,13 @@ PUT is used to update record (by replacing it in dataset), thus the object id mu
 
 ```json
 {
-  X: -8.20549189312339,
-  Y: 53.8516852415384,
-  OBJECTID: 22,
-  Name: Elphin Old Windmill,
-  Address: Elphin,
-  Streetview_Link: http://apps.roscommoncoco.ie/GoogleStreetView/GoogleMapStreetView.html?Lat=53.8516852426549&amp;Lng=-8.20549189242993,
-  WGS84Longitude: -8.20549189,
-  WGS84Latitude: 53.8516852
+  "X": -8.20549189312339,
+  "Y": 53.8516852415384,
+  "OBJECTID": 22,
+  "Name": "Elphin Old Windmill",
+  "Address": "Elphin",
+  "Streetview_Link": "http://apps.roscommoncoco.ie/GoogleStreetView/GoogleMapStreetView.html?Lat=53.8516852426549&amp;Lng=-8.20549189242993",
+  "WGS84Longitude": -8.20549189,
+  "WGS84Latitude": 53.8516852
 }
 ```
-
