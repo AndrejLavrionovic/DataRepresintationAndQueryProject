@@ -82,4 +82,39 @@ An example:
 
 Using DELETE method app developer can remove record from dataset by specifieng object id in the URL address: *http://www.tourism.ie/attraction/r/all?OBJECTID=22*. To remove group of records need to specify their object ids in the URL address separated by '&' - *http://www.tourism.ie/attraction/r/all?OBJECTID=5&OBJECTID=22&OBJECTID=29*. To delete all records of attraction located in the same address need to specify location address in the URL. *http://www.tourism.ie/attraction/r/all?Address=Roscommon* will delete all attraction located in Roscommon.
 
-Need to be very carefull to use DELETE method as incorect use can delete not proper record and even all if record is not specified.
+Need to be very carefull to use DELETE method as incorect use can delete not proper record and even all if record is not specified. The same query is performed only once.
+
+####POST method
+
+With the POST method you can add new record to the dataset, that is POST to *http://www.tourism.ie/attractions/r/* creates a resources that lives under the */r* resource. As result the new record will be returned in json format:
+
+```json
+{
+  X: -8.7584994947,
+  Y: 53.7483984734,
+  OBJECTID: 36,
+  Name: New Attraction,
+  Address: Roscommon,
+  Streetview_Link: <google map link>,
+  WGS84Longitude: -8.7584994947,
+  WGS84Latitude: 53.7483984734
+}
+```
+
+####PUT method
+
+PUT is used to update record (by replacing it in dataset), thus the object id must be specified - *http://www.tourism.ie/attractions/r/<OBJECTID>*. For Example if you want to rename *Elphin Windmill* to *Elphin Old Windmill*, which has OBJECTID 22, you need to PUT request to *http://www.tourism.ie/attractions/r/22*. As result the modified record will be returned as an object:
+
+```json
+{
+  X: -8.20549189312339,
+  Y: 53.8516852415384,
+  OBJECTID: 22,
+  Name: Elphin Old Windmill,
+  Address: Elphin,
+  Streetview_Link: http://apps.roscommoncoco.ie/GoogleStreetView/GoogleMapStreetView.html?Lat=53.8516852426549&amp;Lng=-8.20549189242993,
+  WGS84Longitude: -8.20549189,
+  WGS84Latitude: 53.8516852
+}
+```
+
