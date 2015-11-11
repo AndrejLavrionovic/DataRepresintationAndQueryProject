@@ -30,7 +30,7 @@ The dataset is downloaded as a csv (Comma Separated Values) format file. It cont
 
 ### Design
 
-The data is available through http://www.tourism.ie/attractions/r/ URL address and using HTTP methods.
+The data is available through *http://www.tourism.ie/attractions/r/* URL address and using HTTP methods.
 
 ####GET method is used for retrieving data.
 
@@ -42,4 +42,44 @@ An example of a response would be:
 ```json
 [{1}, {2}, {3}, {4}, ..., {34}]
 ```
+#####Data for specified attraction
 
+To retrieve the data just from one line about only one attraction need to specify object id in the URL address. For example - if you want to get data about "Elphin Windmill" attraction with object ID - 22, URL will be
+*http://www.tourism.ie/attraction/r/22.json*. Data will be returned in json format as an object with set of names and values, where name is column name and value is the data such as:
+
+- *X*: map x coordinate,
+- *Y*: map y coordinate,
+- *OBJECTID*: object id specified in the url address,
+- *Name*: attraction name,
+- ...
+
+Example of respond:
+
+```json
+{
+  X: -8.20549189312339,
+  Y: 53.8516852415384,
+  OBJECTID: 22,
+  Name: Elphin Windmill,
+  Address: Elphin,
+  Streetview_Link: http://apps.roscommoncoco.ie/GoogleStreetView/GoogleMapStreetView.html?Lat=53.8516852426549&amp;Lng=-8.20549189242993,
+  WGS84Longitude: -8.20549189,
+  WGS84Latitude: 53.8516852
+}
+```
+
+#####Data specified by address
+
+Also there is available to get data regarding the location (town address). To do that the URL address must by build with addition parameters - *http://www.tourism.ie/attractions/r/all?address=Roscommon*. Result of this query will be set of OBJECTIDs of all attractions that located in Rosscommon.
+
+An example:
+
+```json
+[{19}, {24}, {25}, {27}]
+```
+
+####DELETE method
+
+Using DELETE method app developer can remove record from dataset by specifieng object id in the URL address: *http://www.tourism.ie/attraction/r/all?OBJECTID=22*. To remove group of records need to specify their object ids in the URL address separated by '&' - *http://www.tourism.ie/attraction/r/all?OBJECTID=5&OBJECTID=22&OBJECTID=29*. To delete all records of attraction located in the same address need to specify location address in the URL. *http://www.tourism.ie/attraction/r/all?Address=Roscommon* will delete all attraction located in Roscommon.
+
+Need to be very carefull to use DELETE method as incorect use can delete not proper record and even all if record is not specified.
